@@ -1,0 +1,9 @@
+name: FriendPlugin
+version: '${project.version}'
+main: me.asuks.friendplugin.FriendPlugin
+
+commands:
+  friend:
+    aliases: f
+  friend-list:
+    aliases: fl
