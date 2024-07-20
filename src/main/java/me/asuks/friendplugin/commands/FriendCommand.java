@@ -29,6 +29,7 @@ public class FriendCommand extends AbstractCommand {
             sender.sendMessage("Usage: /friend <player name>");
             return true;
         }
+
         for(String arg : args) {
             Player friend = Bukkit.getPlayer(arg);
             if(friend == null) {
