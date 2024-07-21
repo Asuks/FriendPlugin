@@ -15,7 +15,7 @@ public class FriendManager {
     public void addFriend(Player player, Player friend) {
         List<UUID> friends = friendMap.get(player.getUniqueId());
         if(friends == null) friends = new ArrayList<>();
-        friends.add(friend.getUniqueId());
+        if(!friends.contains(friend.getUniqueId()))friends.add(friend.getUniqueId());
         friendMap.put(player.getUniqueId(), friends);
     }
 

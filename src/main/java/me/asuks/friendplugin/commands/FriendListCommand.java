@@ -1,9 +1,11 @@
 package me.asuks.friendplugin.commands;
 
 import me.asuks.friendplugin.FriendPlugin;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 
 import java.util.List;
 
@@ -27,11 +29,11 @@ public class FriendListCommand extends AbstractCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) return true;
         List<Player> friends = FriendPlugin.getManager().getFriend((Player) sender);
-        sender.sendMessage("---Friend List---");
+        sender.sendMessage(ChatColor.BLUE+"---Friend List---");
         for(Player friend : friends) {
-            sender.sendMessage(friend.getName());
+            sender.sendMessage(ChatColor.GREEN+friend.getName());
         }
-        sender.sendMessage("-----------------");
+        sender.sendMessage(ChatColor.BLUE+"-----------------");
         return true;
     }
 }

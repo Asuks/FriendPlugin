@@ -28,7 +28,6 @@ public class FriendCommand extends AbstractCommand {
         if(args.length == 0) {
             sender.sendMessage("Usage: /friend <player name>");
             return true;
-
         }
 
         for(String arg : args) {
