@@ -31,9 +31,8 @@ public class FriendManager {
         if(!friends.contains(friend.getUniqueId())){
             TextComponent message= new TextComponent(ChatColor.GREEN+"Accept");
             message.setBold(true);
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/add_friend "+nam));
-            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ComponentBuilder("Accept this friend request").italic(true).create()));
+            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/add_Friend "+nam));
+            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Accept this friend request").italic(true).create()));
 
             friend.spigot().sendMessage(message);
 

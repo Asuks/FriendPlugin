@@ -7,5 +7,5 @@ commands:
     aliases: f
   friend-list:
     aliases: fl
-  add_friend:
+  add_Friend:
 
