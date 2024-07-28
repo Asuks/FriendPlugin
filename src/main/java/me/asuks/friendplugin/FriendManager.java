@@ -1,5 +1,7 @@
 package me.asuks.friendplugin;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -10,15 +12,21 @@ import org.bukkit.entity.Player;
 
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.List;
 
 public class FriendManager {
-    private final Map<UUID, List<UUID>> friendMap;
+    public static Map<UUID, List<UUID>> friendMap;
 
     public FriendManager() {
         friendMap = new HashMap<>();
     }
+
+
 
     public void addFriend(Player player, Player friend) {
         List<UUID> friends = friendMap.get(player.getUniqueId());
@@ -74,5 +82,18 @@ public class FriendManager {
     public boolean isFriend(Player player, Player friend) {
         List<UUID> friends = friendMap.get(player.getUniqueId());
         return friends != null && friends.contains(friend.getUniqueId());
+    }
+
+    public void readjson() throws IOException {
+        Gson gson = new Gson();
+        File file = new File(FriendPlugin.getPlugin().getDataFolder().getAbsolutePath()+"/notes.json");
+        file.getParentFile().mkdir();
+        file.createNewFile();
+        Type mapType = new TypeToken<Map<UUID,List<UUID>>>() {}.getType();
+        try (FileReader reader = new FileReader(FriendPlugin.getPlugin().getDataFolder().getAbsolutePath()+"/notes.json")){
+            friendMap = gson.fromJson(reader, mapType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
