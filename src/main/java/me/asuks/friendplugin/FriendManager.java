@@ -27,8 +27,7 @@ public class FriendManager {
     }
 
 
-
-    public void addFriend(Player player, Player friend) {
+    public void friendRequest(Player player, Player friend) {
         List<UUID> friends = friendMap.get(player.getUniqueId());
         if(friends == null) friends = new ArrayList<>();
 
@@ -39,11 +38,10 @@ public class FriendManager {
         if(!friends.contains(friend.getUniqueId())){
             TextComponent message= new TextComponent(ChatColor.GREEN+"Accept");
             message.setBold(true);
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/add_Friend "+nam));
+            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/AddFriend "+nam));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Accept this friend request").italic(true).create()));
 
             friend.spigot().sendMessage(message);
-
         }
         else{
             player.sendMessage(ChatColor.RED+"You`re are already friends with this person!");
@@ -52,7 +50,7 @@ public class FriendManager {
 
     }
 
-    public void add_friend(Player player, Player friend){
+    public void addFriend(Player player, Player friend){
         List<UUID> friends = friendMap.get(player.getUniqueId());
         List<UUID> subfriends = friendMap.get(friend.getUniqueId());
         if(subfriends == null) subfriends = new ArrayList<>();
@@ -63,11 +61,24 @@ public class FriendManager {
         friendMap.put(friend.getUniqueId(), subfriends);
         player.sendMessage(ChatColor.GOLD+"Your request is accepted!");
         friend.sendMessage(ChatColor.GOLD+"You are now friends with "+player.getName());
-
-
     }
 
-
+    public void removeFriend(Player player, Player friend){
+        List<UUID> friends = friendMap.get(player.getUniqueId());
+        List<UUID> subfriends = friendMap.get(friend.getUniqueId());
+        if(subfriends == null || friends == null)return;
+        if(friends.contains(friend.getUniqueId())){
+            player.sendMessage(ChatColor.GREEN + "Removed " + friend.getName() + "from your friend list!");
+            friend.sendMessage(ChatColor.GREEN +  player.getName() + " has been removed from your friend list!");
+            friends.remove(friend.getUniqueId());
+            subfriends.remove(player.getUniqueId());
+            friendMap.put(player.getUniqueId(), friends);
+            friendMap.put(friend.getUniqueId(), subfriends);
+        }
+        else{
+            player.sendMessage(ChatColor.RED+"Your are not friends with this person!");
+        }
+    }
 
     public List<Player> getFriend(Player player) {
         List<UUID> friends = friendMap.get(player.getUniqueId());

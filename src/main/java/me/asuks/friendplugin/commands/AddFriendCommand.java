@@ -7,9 +7,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class add_FriendCommand extends AbstractCommand{
+public class AddFriendCommand extends AbstractCommand{
 
-    public add_FriendCommand(FriendPlugin plugin) {
+    public AddFriendCommand(FriendPlugin plugin) {
         super(plugin);
     }
 
@@ -20,7 +20,7 @@ public class add_FriendCommand extends AbstractCommand{
 
     @Override
     public String getCommandName() {
-        return "add_Friend";
+        return "AddFriend";
     }
 
     @Override
@@ -28,7 +28,7 @@ public class add_FriendCommand extends AbstractCommand{
 
         for(String arg: args){
             Player friend =Bukkit.getPlayer(arg);
-            FriendPlugin.getManager().add_friend( friend, (Player)sender);
+            FriendPlugin.getManager().addFriend( friend, (Player)sender);
         }
 
         return true;

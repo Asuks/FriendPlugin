@@ -24,19 +24,43 @@ public class FriendCommand extends AbstractCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
         if(!(sender instanceof Player)) return true;
-        if(args.length == 0) {
+        if(args.length == 0 || args.length > 2 ) {
             sender.sendMessage("Usage: /friend <player name>");
             return true;
         }
 
-        for(String arg : args) {
-            Player friend = Bukkit.getPlayer(arg);
+        if(args.length == 2){
+            if(args[0].equalsIgnoreCase("add")){
+                Player friend = Bukkit.getPlayer(args[1]);
+                if(friend == null) {
+                    sender.sendMessage("No such player.");
+                    return true;
+                }
+                else FriendPlugin.getManager().friendRequest((Player) sender, friend);
+            }
+            else if(args[0].equalsIgnoreCase("remove")){
+                Player friend = Bukkit.getPlayer(args[1]);
+                if(friend == null) {
+                    sender.sendMessage("No such player.");
+                    return true;
+                }
+                else FriendPlugin.getManager().removeFriend((Player) sender, friend);
+            }
+            else{
+                sender.sendMessage("Usage: /friend <player name>!");
+                sender.sendMessage(args[0]);
+                return true;
+            }
+        }
+        else if(args.length == 1){
+            Player friend = Bukkit.getPlayer(args[0]);
             if(friend == null) {
                 sender.sendMessage("No such player.");
-                continue;
+                return true;
             }
-            FriendPlugin.getManager().addFriend((Player) sender, friend);
+            else FriendPlugin.getManager().friendRequest((Player) sender, friend);
         }
         return true;
     }

@@ -7,7 +7,7 @@ commands:
     aliases: f
   friend-list:
     aliases: fl
-  add_Friend:
+  AddFriend:
   SaveFile:
     aliass: svf
   ReadJson:

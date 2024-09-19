@@ -16,10 +16,9 @@ public final class FriendPlugin extends JavaPlugin {
         manager = new FriendManager();
         new FriendCommand(this);
         new FriendListCommand(this);
-        new add_FriendCommand(this);
+        new AddFriendCommand(this);
         new SaveFileCommand(this);
         new ReadJsonCommand(this);
-
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new QuitListener(), this);
